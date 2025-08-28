@@ -1,0 +1,10 @@
+/.gitignore         export-ignore
+/docker-compose.yml export-ignore
+/Dockerfile         export-ignore
+/justfile           export-ignore
+/phpstan-cache      export-ignore
+/phpstan.neon.dist  export-ignore
+/phpunit.xml.dist   export-ignore
+/pint.json          export-ignore
+/README.md          export-ignore
+/tests              export-ignore

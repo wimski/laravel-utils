@@ -1,0 +1,63 @@
+{
+    "preset": "psr12",
+    "exclude": [
+        "phpstan-cache"
+    ],
+    "notName": [
+        "_*.php"
+    ],
+    "rules": {
+        "align_multiline_comment": {
+            "comment_type": "phpdocs_only"
+        },
+        "binary_operator_spaces": {
+            "operators": {
+                "=": "align_single_space_minimal",
+                "=>": "align_single_space_minimal"
+            }
+        },
+        "braces": {
+            "allow_single_line_closure": true
+        },
+        "concat_space": {
+            "spacing": "one"
+        },
+        "curly_braces_position": {
+            "allow_single_line_anonymous_functions": true,
+            "anonymous_classes_opening_brace": "next_line_unless_newline_at_signature_end"
+        },
+        "global_namespace_import": {
+            "import_classes": true
+        },
+        "new_with_braces": {
+            "anonymous_class": false
+        },
+        "no_unused_imports": true,
+        "ordered_imports": {
+            "sort_algorithm": "alpha"
+        },
+        "ordered_traits": true,
+        "phpdoc_align": {
+            "align": "vertical",
+            "tags": [
+                "param",
+                "property",
+                "property-read",
+                "property-write",
+                "return"
+            ]
+        },
+        "phpdoc_line_span": true,
+        "single_import_per_statement": {
+            "group_to_single_imports": true
+        },
+        "trailing_comma_in_multiline": {
+            "elements": [
+                "arguments",
+                "arrays",
+                "match",
+                "parameters"
+            ]
+        }
+    }
+}
