@@ -1,6 +1,6 @@
 {
-    "name": "wimski/laravel-package-template",
-    "description": "Template for Laravel packages",
+    "name": "wimski/laravel-utils",
+    "description": "Miscellaneous utilities for Laravel",
     "license": "MIT",
     "type": "library",
     "require": {
@@ -18,19 +18,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Wimski\\LaravelPackageTemplate\\": "src"
+            "Wimski\\LaravelUtils\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Wimski\\LaravelPackageTemplate\\Tests\\": "tests/"
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Wimski\\LaravelPackageTemplate\\Providers\\PlaceholderServiceProvider"
-            ]
+            "Wimski\\LaravelUtils\\Tests\\": "tests/"
         }
     },
     "config": {

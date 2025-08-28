@@ -1,1 +1,3 @@
-# Laravel Package Template
+# Laravel Utils
+
+Miscellaneous utilities for Laravel.
