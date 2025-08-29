@@ -2,13 +2,22 @@ FROM php:8.4-cli-alpine
 
 RUN apk add --no-cache --virtual .build-deps \
     $PHPIZE_DEPS \
+        freetype-dev \
+        libjpeg-turbo-dev \
+        libpng-dev \
     && apk add --no-cache \
+        freetype \
         git \
+        libjpeg-turbo \
+        libwebp-dev \
         shadow \
     && pecl install \
         pcov \
     && docker-php-ext-enable \
         pcov \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+    && docker-php-ext-install \
+        gd \
     && apk del -f .build-deps \
     && rm -rf /tmp/pear
 
