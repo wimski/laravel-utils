@@ -26,6 +26,8 @@ RUN curl -s https://getcomposer.org/installer | \
     && mkdir /.composer \
     && chown -R nobody:nobody /.composer
 
+RUN echo 'pcov.directory=.' >> /usr/local/etc/php/conf.d/docker-php-ext-pcov.ini
+
 USER nobody
 
 WORKDIR /var/www/html

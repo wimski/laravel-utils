@@ -23,7 +23,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Wimski\\LaravelUtils\\Tests\\": "tests/"
+            "Tests\\": "tests/"
         }
     },
     "config": {
