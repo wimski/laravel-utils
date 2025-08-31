@@ -10,6 +10,7 @@ use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Orchestra\Testbench\TestCase;
 use RuntimeException;
 use Tests\Resources\ValidationServiceProvider;
+use Wimski\LaravelUtils\Providers\LaravelUtilsServiceProvider;
 
 abstract class AbstractIntegrationTestCase extends TestCase
 {
@@ -28,6 +29,7 @@ abstract class AbstractIntegrationTestCase extends TestCase
     protected function getPackageProviders($app): array
     {
         return [
+            LaravelUtilsServiceProvider::class,
             ValidationServiceProvider::class,
         ];
     }

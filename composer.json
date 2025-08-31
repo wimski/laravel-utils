@@ -29,6 +29,13 @@
             "Tests\\": "tests/"
         }
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Wimski\\LaravelUtils\\Providers\\LaravelUtilsServiceProvider"
+            ]
+        }
+    },
     "config": {
       "sort-packages": true
     }
