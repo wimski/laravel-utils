@@ -42,3 +42,40 @@ function config_int(string $key, ?int $default = null): int;
 ```php
 function config_string(string $key, ?string $default = null): string;
 ```
+
+## Classes
+
+The following class helpers are shortcuts
+for PHP native functionality to determine
+if a class implements a certain interface,
+extends a certain parent or uses a certain trait.
+
+### Interface Implementation
+```php
+/**
+ * @param object|class-string $class
+ * @param class-string        $interface
+ */
+function has_interface(object|string $class, string $interface, bool $autoload = true): bool;
+```
+https://www.php.net/manual/en/function.class-implements.php
+
+### Parent Extension
+```php
+/**
+ * @param object|class-string $class
+ * @param class-string        $parent
+ */
+function has_parent(object|string $class, string $parent, bool $autoload = true): bool;
+```
+https://www.php.net/manual/en/function.class-parents.php
+
+### Trait Usage
+```php
+/**
+ * @param object|class-string $class
+ * @param class-string        $trait
+ */
+function has_trait(object|string $class, string $trait): bool;
+```
+https://www.php.net/manual/en/function.class-uses.php
