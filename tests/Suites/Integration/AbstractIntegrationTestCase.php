@@ -31,4 +31,9 @@ abstract class AbstractIntegrationTestCase extends TestCase
             ValidationServiceProvider::class,
         ];
     }
+
+    protected function setConfig(string $key, mixed $value): void
+    {
+        config([$key => $value]);
+    }
 }
