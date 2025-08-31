@@ -79,3 +79,11 @@ https://www.php.net/manual/en/function.class-parents.php
 function has_trait(object|string $class, string $trait): bool;
 ```
 https://www.php.net/manual/en/function.class-uses.php
+
+## Translations
+
+### Enum
+```php
+function trans_enum(UnitEnum $enum, bool $plural = false): string;
+```
+See [Enum Translations](./enum-translations.md).
