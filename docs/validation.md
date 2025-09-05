@@ -153,3 +153,134 @@ class MyRequest extends FormRequest
 | `uuid(?int $version = null): string`                                        | [uuid](https://laravel.com/docs/12.x/validation#rule-uuid)                                     |
 | `unique(string $table, string $column = 'NULL'): Unique`                    | [unique](https://laravel.com/docs/12.x/validation#rule-unique)                                 |
 | `uppercase(): string`                                                       | [uppercase](https://laravel.com/docs/12.x/validation#rule-uppercase)                           |
+
+## Custom Rule Handling
+
+This package provides a setup for custom validation rules with:
+* a unified way to apply them
+* dependency injection support
+* message customization
+
+### Example
+
+```php
+namespace App\Enums;
+
+use Wimski\LaravelUtils\Concerns\AddsParamsToValidationRule;
+use Wimski\LaravelUtils\Contracts\ValidationRuleIdentifierInterface;
+
+enum ValidationRuleEnum: string implements ValidationRuleIdentifierInterface
+{
+    use AddsParamsToValidationRule;
+ 
+    case MY_RULE = 'my_rule';
+    
+    public function getValue(): string
+    {
+        return $this->value;
+    }
+    
+    protected function getIdentifier(): ValidationRuleIdentifierInterface
+    {
+        return $this;
+    }
+}
+```
+
+```php
+namespace App\Rules;
+
+use App\Enums\ValidationRuleEnum;
+use Illuminate\Contracts\Translation\Translator;
+use Wimski\LaravelUtils\Contracts\ValidationRuleIdentifierInterface;
+use Wimski\LaravelUtils\Validation\AbstractValidationRule;
+
+class MyRule extends AbstractValidationRule
+{
+    // Optionally override the constructor
+    // in case your class has dependencies. 
+    public function __construct(
+        Translator $translator,
+        protected readonly SomeInjectedDependency $someInjectedDependency,
+    ) {
+        parent::__construct($translator);
+    }
+
+    public static function getIdentifier(): ValidationRuleIdentifierInterface
+    {
+        return ValidationRuleEnum::MY_RULE;
+    }
+    
+    protected function isValid(mixed $value): bool
+    {
+        // Implement validation logic that returns a boolean.
+    }
+    
+    //
+    // Optional method overrides
+    //
+    
+    protected function parseData(array $data): array
+    {
+        // If your rule accepts parameters,
+        // you can parse the given values here.
+    }
+    
+    protected function getMessage(string $attribute): string
+    {
+        // The default message is a translation
+        // based on the methods below.
+        // You can override this method
+        // for a completely custom implementation.
+    }
+    
+    protected function getMessageKey(): string
+    {
+        // Returns the key that is used for the message translation.
+        // The default is: 'validation.{IDENTIFIER_VALUE}'.
+    }
+    
+    protected function getMessageParameters(string $attribute): array
+    {
+        // Returns the parameters that are used for the message translation.
+        // The default is: ['attribute' => $attribute].
+    }
+}
+```
+
+```php
+namespace App\Providers;
+
+use App\Rules\MyRule;
+use Wimski\LaravelUtils\Providers\ValidationServiceProvider as ServiceProvider;
+
+class ValidationServiceProvider extends ServiceProvider
+{
+    protected array $rules = [
+        MyRule::class,
+    ];
+}
+```
+
+```php
+use App\Enums\ValidationRuleEnum;
+use App\Rules\MyRule;
+use Illuminate\Foundation\Http\FormRequest;
+
+class MyRequest extends FormRequest
+{
+    public function rules(): array
+    {
+        return [
+            'input_a' => [
+                ValidationRuleEnum::MY_RULE->getValue(),
+                // or
+                MyRule::getIdentifier(),
+            ],
+            'input_b' => [
+                ValidationRuleEnum::MY_RULE->withParams('foo'),
+            ],
+        ];
+    }
+}
+```

@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Orchestra\Testbench\TestCase;
 use RuntimeException;
+use Tests\Resources\ValidationServiceProvider;
 
 abstract class AbstractIntegrationTestCase extends TestCase
 {
@@ -22,5 +23,12 @@ abstract class AbstractIntegrationTestCase extends TestCase
         }
 
         return $this->app;
+    }
+
+    protected function getPackageProviders($app): array
+    {
+        return [
+            ValidationServiceProvider::class,
+        ];
     }
 }
