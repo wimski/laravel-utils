@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace Tests\Suites\Integration\Validation;
 
 use Carbon\Carbon;
-use Closure;
 use DateTimeInterface;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Validation\Factory as ValidatorFactory;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
@@ -18,6 +16,7 @@ use Orchestra\Testbench\Attributes\WithMigration;
 use Orchestra\Testbench\Factories\UserFactory;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\Concerns\Validates;
 use Tests\Resources\TestBackedEnum;
 use Tests\Suites\Integration\AbstractIntegrationTestCase;
 use Wimski\LaravelUtils\Validation\Dimensions;
@@ -26,6 +25,8 @@ use Wimski\LaravelUtils\Validation\ValidationRuleMaker;
 #[WithMigration]
 class ValidationRuleMakerTest extends AbstractIntegrationTestCase
 {
+    use Validates;
+
     protected const string TIMESTAMP = '2025-04-03 02:01:00';
 
     protected ValidatorFactory $factory;
@@ -4101,43 +4102,6 @@ class ValidationRuleMakerTest extends AbstractIntegrationTestCase
         );
     }
 
-    /**
-     * @param  array<string, mixed>                                   $data
-     * @param  array<string, array<array-key, Closure|object|string>> $rules
-     * @return array<string, array<array-key, string>>
-     */
-    protected function generateErrors(array $data, array $rules): array
-    {
-        /** @var array<string, array<array-key, string>> $errors */
-        $errors = $this->makeValidator($data, $rules)
-            ->errors()
-            ->toArray();
-
-        return $errors;
-    }
-
-    /**
-     * @param  array<string, mixed>                                   $data
-     * @param  array<string, array<array-key, Closure|object|string>> $rules
-     * @return array<string, mixed>
-     */
-    protected function getValidated(array $data, array $rules): array
-    {
-        /** @var array<string, mixed> $data */
-        $data = $this->makeValidator($data, $rules)->validated();
-
-        return $data;
-    }
-
-    /**
-     * @param array<string, mixed>                                   $data
-     * @param array<string, array<array-key, Closure|object|string>> $rules
-     */
-    protected function makeValidator(array $data, array $rules): Validator
-    {
-        return $this->factory->make($data, $rules);
-    }
-
     protected function addGuard(?string $guard): void
     {
         if (! $guard) {
@@ -4150,5 +4114,10 @@ class ValidationRuleMakerTest extends AbstractIntegrationTestCase
         $guards[$guard] = current($guards);
 
         config(['auth.guards' => $guards]);
+    }
+
+    protected function getValidatorFactory(): ValidatorFactory
+    {
+        return $this->factory;
     }
 }
