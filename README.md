@@ -1,6 +1,7 @@
 # Laravel Utils
 
 [![PHPStan](https://github.com/wimski/laravel-utils/actions/workflows/phpstan.yml/badge.svg)](https://github.com/wimski/laravel-utils/actions/workflows/phpstan.yml)
+[![PHPUnit](https://github.com/wimski/laravel-utils/actions/workflows/phpunit.yml/badge.svg)](https://github.com/wimski/laravel-utils/actions/workflows/phpunit.yml)
 
 Miscellaneous utilities for Laravel.
 
