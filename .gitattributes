@@ -1,5 +1,6 @@
 /.gitignore         export-ignore
 /docker-compose.yml export-ignore
+/docs               export-ignore
 /Dockerfile         export-ignore
 /justfile           export-ignore
 /phpstan-cache      export-ignore
