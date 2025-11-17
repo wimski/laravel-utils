@@ -1,5 +1,7 @@
 # Laravel Utils
 
+[![PHPStan](https://github.com/wimski/laravel-utils/actions/workflows/phpstan.yml/badge.svg)](https://github.com/wimski/laravel-utils/actions/workflows/phpstan.yml)
+
 Miscellaneous utilities for Laravel.
 
 * [Enums](./docs/enums.md)
