@@ -61,6 +61,21 @@ class CustomValidationRulesTest extends AbstractIntegrationTestCase
             ['foo' => [ValidationRuleEnum::DATA->withParams('bar')]],
         ));
 
+        self::assertEmpty($this->generateErrors(
+            ['foo' => 'xxx_123'],
+            ['foo' => [ValidationRuleEnum::DATA->withParams(123)]],
+        ));
+
+        self::assertEmpty($this->generateErrors(
+            ['foo' => 'xxx_1.23'],
+            ['foo' => [ValidationRuleEnum::DATA->withParams(1.23)]],
+        ));
+
+        self::assertEmpty($this->generateErrors(
+            ['foo' => 'xxx_true'],
+            ['foo' => [ValidationRuleEnum::DATA->withParams(true)]],
+        ));
+
         $errors = $this->generateErrors(
             ['foo' => 'bar'],
             ['foo' => [ValidationRuleEnum::DATA->withParams('bar')]],

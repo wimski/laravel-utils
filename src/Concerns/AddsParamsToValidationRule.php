@@ -10,8 +10,20 @@ trait AddsParamsToValidationRule
 {
     abstract protected function getIdentifier(): ValidationRuleIdentifierInterface;
 
-    public function withParams(mixed ...$value): string
+    public function withParams(bool|float|int|string ...$value): string
     {
-        return $this->getIdentifier()->getValue() . ':' . implode(',', $value);
+        $values = array_map(function (bool|float|int|string $var): string {
+            if (is_string($var)) {
+                return $var;
+            }
+
+            if (is_float($var) || is_int($var)) {
+                return (string) $var;
+            }
+
+            return $var === true ? 'true' : 'false';
+        }, $value);
+
+        return $this->getIdentifier()->getValue() . ':' . implode(',', $values);
     }
 }
